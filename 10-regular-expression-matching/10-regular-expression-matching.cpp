@@ -13,24 +13,26 @@ public:
            
             return false;
         }
+        if(dp[i][j]!=-1)
+            return dp[i][j];
         bool ans= i<n && (p[j]==s[i] or p[j]=='.');
         if(j+1<m && (p[j+1]=='*'))
         {
             
-           return  check(i,j+2,p,s,dp) || (ans && check(i+1,j,p,s,dp));
+           return dp[i][j] = check(i,j+2,p,s,dp) || (ans && check(i+1,j,p,s,dp));
         }else if(ans)
         {
            
-           return  check(i+1,j+1,p,s,dp);
+           return dp[i][j] = check(i+1,j+1,p,s,dp);
         }
-        return false;
+        return dp[i][j] = false;
     }
     
     bool isMatch(string s, string p) {
                 
          m= p.length();
          n= s.length();
-        vector<vector<int>>dp (n, vector<int>(m, -1));
+        vector<vector<int>>dp (n+3, vector<int>(m+3, -1));
         return check(0, 0, p, s,dp);
         
     }
