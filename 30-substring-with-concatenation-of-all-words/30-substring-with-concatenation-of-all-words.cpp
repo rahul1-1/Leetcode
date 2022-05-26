@@ -4,19 +4,25 @@ public:
     bool check(int j,string &s,int m,int len)
     {
         int t=len;
-         
+         int cnt=0;
         unordered_map<string ,int>cmp;
         while(t--)
         {
          string st=s.substr(j,m);
             j+=m;
-            cmp[st]++;
-          //  cout<<" "<<st<<" ";
+         cmp[st]++;
+            if(mp.find(st)!=mp.end() && mp[st]>=cmp[st])
+               cnt++;
+           else{
+               break;
+           }
+           
+   
         }
        //cout<<endl;
-        if(cmp==mp)
+       if(cnt==len)
             return true;
-        return false;
+       return false;
     }
     vector<int> findSubstring(string s, vector<string>&w) {
         int n=s.length();
